@@ -3,7 +3,7 @@ import os
 
 def generar_recibo(ch, method, properties, body):
     mensaje = body.decode()
-    print(f" [x] Recibido: {mensaje}")
+    print(f"  Recibido: {mensaje}")
     
     # Creamos el nombre del archivo basado en el contenido (o un timestamp)
     nombre_archivo = "ultimo_recibo.txt"
@@ -16,7 +16,7 @@ def generar_recibo(ch, method, properties, body):
         f.write("Estado: PROCESADO EXITOSAMENTE\n")
         f.write("==============================\n")
     
-    print(f" [v] Recibo generado en: {os.path.abspath(nombre_archivo)}")
+    print(f"  Recibo generado en: {os.path.abspath(nombre_archivo)}")
     # Confirmar a RabbitMQ que el mensaje fue procesado
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
@@ -27,12 +27,12 @@ def iniciar_consumidor():
         channel = connection.channel()
 
         channel.queue_declare(queue='examen_queue')
-        print(' [*] Esperando mensajes para generar recibos. Para salir presiona CTRL+C')
+        print(' Esperando mensajes para generar recibos. Para salir presiona CTRL+C')
 
         channel.basic_consume(queue='examen_queue', on_message_callback=generar_recibo)
         channel.start_consuming()
     except Exception as e:
-        print(f" [!] Error en el consumidor: {e}")
+        print(f" Error en el consumidor: {e}")
 
 if __name__ == '__main__':
     iniciar_consumidor()
