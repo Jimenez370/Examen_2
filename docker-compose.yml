@@ -1,0 +1,18 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_examen
+    restart: always
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=examen_db
+    ports:
+      - "3307:3306"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbit_examen
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
