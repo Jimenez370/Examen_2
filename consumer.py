@@ -23,7 +23,7 @@ def generar_recibo(ch, method, properties, body):
 def iniciar_consumidor():
     try:
         # Usa 'localhost' o la IP que configuramos antes
-        connection = pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1'))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
         channel = connection.channel()
 
         channel.queue_declare(queue='examen_queue')
